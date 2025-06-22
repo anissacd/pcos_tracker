@@ -74,5 +74,3 @@ FROM appointments a
 JOIN patients p ON a.patient_id = p.patient_id
 WHERE a.follow_up_needed = TRUE;
 ```
-
-
