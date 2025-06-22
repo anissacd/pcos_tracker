@@ -52,11 +52,12 @@ CREATE TABLE visit_types (
   cost NUMERIC(8,2)
 );
 
-Sample Queries
+## 🧪 Sample Queries
+
 ```sql
 SELECT *
 FROM patients p
 JOIN appointments a ON p.patient_id = a.patient_id
 JOIN visit_types v ON a.visit_reason = v.visit_reason
 ORDER BY a.appointment_date;
-```
+
