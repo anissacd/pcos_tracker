@@ -1,12 +1,12 @@
-# pcos_tracker
+### pcos_tracker
 SQL-based project to track PCOS appointments and follow-ups
 
-# PCOS Appointment and Follow-Up Tracker (PostgreSQL)
+### PCOS Appointment and Follow-Up Tracker (PostgreSQL)
 
-## Project Summary
+### Project Summary
 This project simulates a healthcare data system for tracking appointments and follow-up needs among patients with Polycystic Ovary Syndrome (PCOS). It demonstrates relational database design and SQL analysis using realistic patient and appointment data.
 
-## Database Structure
+### Database Structure
 
 ### patients
 - patient_id (Primary Key)
@@ -24,7 +24,7 @@ This project simulates a healthcare data system for tracking appointments and fo
 - visit_reason
 - follow_up_needed (BOOLEAN)
 
-## Key SQL Queries
+### Key SQL Queries
 
 ### Join Patients and Appointments
 ```sql
@@ -63,19 +63,19 @@ JOIN patients ON appointments.patient_id = patients.patient_id
 WHERE appointment_date BETWEEN '2024-06-01' AND '2024-06-30';
 ```
 
-## Tools Used
+### Tools Used
 - PostgreSQL
 - pgAdmin
 - SQL
 - Optional: Tableau or Excel for visualization
 
-## Project Highlights
+### Project Highlights
 - Designed and normalized a relational healthcare database
 - Used SQL to generate insights about follow-up needs and provider trends
 - Demonstrated filtering, joining, grouping, and date-based analysis
 - Built a clean structure that can scale to include labs, diagnoses, or treatment tracking
 
-## Possible Extensions
+### Possible Extensions
 - Add diagnosis or treatment tables
 - Track lab result trends
 - Build visual dashboards in Tableau or Excel
