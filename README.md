@@ -66,3 +66,16 @@ After running a query (such as the join query above), export the results to CSV:
 - SQL joins and filters
 - Exporting SQL results to CSV for reporting
 - Healthcare-focused data modeling
+
+__________________________________________________________________________________________________---
+
+### Key Performance Indicators (KPIs)
+
+This project tracks healthcare-related performance metrics, including:
+
+- Total patients and appointments
+- Percentage of appointments requiring follow-up
+- Appointments by provider type and visit reason
+- Demographics breakdown (age, gender, race)
+- Time-based trends (appointments per month)
+
