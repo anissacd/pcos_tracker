@@ -52,12 +52,27 @@ CREATE TABLE visit_types (
   cost NUMERIC(8,2)
 );
 
-## 🧪 Sample Queries
 
+```
+### Sample Queries
+### Join All Data
 ```sql
 SELECT *
 FROM patients p
 JOIN appointments a ON p.patient_id = a.patient_id
 JOIN visit_types v ON a.visit_reason = v.visit_reason
 ORDER BY a.appointment_date;
+```
+### Upcoming Follow-Ups
+SELECT
+  a.appointment_id,
+  CONCAT(p.first_name, ' ', p.last_name) AS full_name,
+  a.appointment_date,
+  a.provider_type,
+  a.visit_reason
+FROM appointments a
+JOIN patients p ON a.patient_id = p.patient_id
+WHERE a.follow_up_needed = TRUE;
+```
+
 
