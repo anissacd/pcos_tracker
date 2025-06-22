@@ -1,82 +1,73 @@
-### pcos_tracker
-SQL-based project to track PCOS appointments and follow-ups
+## PCOS Appointment & Follow-Up Tracker (PostgreSQL)
 
-### PCOS Appointment and Follow-Up Tracker (PostgreSQL)
+This project simulates a small-scale healthcare data system for tracking appointments and follow-up needs among patients diagnosed with or suspected to have Polycystic Ovary Syndrome (PCOS). It demonstrates database design, data entry, SQL querying, and data export for visualization or reporting.
 
-### Project Summary
-This project simulates a healthcare data system for tracking appointments and follow-up needs among patients with Polycystic Ovary Syndrome (PCOS). It demonstrates relational database design and SQL analysis using realistic patient and appointment data.
-
-### Database Structure
+## Database Overview
 
 ### patients
 - patient_id (Primary Key)
 - first_name
 - last_name
 - birth_date
-- gender (Only 'Female' or 'Other')
+- gender (values: 'Female', 'Other')
 - race_ethnicity
 
 ### appointments
 - appointment_id (Primary Key)
 - patient_id (Foreign Key to patients)
 - appointment_date
-- provider_type (e.g., OB-GYN, Endocrinologist)
+- provider_type
 - visit_reason
 - follow_up_needed (BOOLEAN)
 
-### Key SQL Queries
+## Sample Queries
 
-### Join Patients and Appointments
+### Join all data
 ```sql
-SELECT 
-  CONCAT(patients.first_name, ' ', patients.last_name) AS full_name,
-  appointments.provider_type,
-  appointments.appointment_date,
-  appointments.visit_reason,
-  appointments.follow_up_needed
-FROM appointments
-JOIN patients ON appointments.patient_id = patients.patient_id;
+SELECT *
+FROM appointments a
+JOIN patients p ON a.patient_id = p.patient_id;
 ```
 
-### Count Appointments Needing Follow-Up
+### Upcoming follow-ups
 ```sql
-SELECT COUNT(*) AS total_follow_ups
-FROM appointments
-WHERE follow_up_needed = TRUE;
+SELECT
+  a.appointment_id,
+  CONCAT(p.first_name, ' ', p.last_name) AS full_name,
+  a.appointment_date,
+  a.provider_type,
+  a.visit_reason
+FROM appointments a
+JOIN patients p ON a.patient_id = p.patient_id
+WHERE a.follow_up_needed = TRUE;
 ```
 
-### Appointments by Provider Type
+### Appointments in date range
 ```sql
-SELECT provider_type, COUNT(*) AS total
+SELECT *
 FROM appointments
-GROUP BY provider_type;
-```
-
-### Appointments in June 2024
-```sql
-SELECT 
-  patients.first_name || ' ' || patients.last_name AS full_name,
-  appointment_date,
-  provider_type
-FROM appointments
-JOIN patients ON appointments.patient_id = patients.patient_id
 WHERE appointment_date BETWEEN '2024-06-01' AND '2024-06-30';
 ```
 
-### Tools Used
-- PostgreSQL
-- pgAdmin
-- SQL
-- Optional: Tableau or Excel for visualization
+## CSV Export Instructions
 
-### Project Highlights
-- Designed and normalized a relational healthcare database
-- Used SQL to generate insights about follow-up needs and provider trends
-- Demonstrated filtering, joining, grouping, and date-based analysis
-- Built a clean structure that can scale to include labs, diagnoses, or treatment tracking
+After running a query (such as the join query above), export the results to CSV:
 
-### Possible Extensions
-- Add diagnosis or treatment tables
-- Track lab result trends
-- Build visual dashboards in Tableau or Excel
-- Export results to CSV or create database views for reporting
+- In pgAdmin:
+  - Run the query
+  - Right-click on the result grid
+  - Select "Save as CSV"
+
+- In DBeaver:
+  - Run the query
+  - Right-click on the result grid
+  - Choose "Export Resultset"
+  - Choose "CSV" as the format
+
+## Concepts Demonstrated
+
+- Relational database structure
+- One-to-many relationships (patients to appointments)
+- SQL joins and filters
+- Exporting SQL results to CSV for reporting
+- Healthcare-focused data modeling
