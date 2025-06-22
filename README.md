@@ -27,12 +27,56 @@ This project simulates a healthcare data system for tracking appointments and fo
 ## Key SQL Queries
 
 ### Join Patients and Appointments
-
+```sql
 SELECT 
-  CONCAT(patients.first_name, ' ',patients.last_name) AS full_name,
+  CONCAT(patients.first_name, ' ', patients.last_name) AS full_name,
   appointments.provider_type,
   appointments.appointment_date,
   appointments.visit_reason,
   appointments.follow_up_needed
 FROM appointments
 JOIN patients ON appointments.patient_id = patients.patient_id;
+```
+
+### Count Appointments Needing Follow-Up
+```sql
+SELECT COUNT(*) AS total_follow_ups
+FROM appointments
+WHERE follow_up_needed = TRUE;
+```
+
+### Appointments by Provider Type
+```sql
+SELECT provider_type, COUNT(*) AS total
+FROM appointments
+GROUP BY provider_type;
+```
+
+### Appointments in June 2024
+```sql
+SELECT 
+  patients.first_name || ' ' || patients.last_name AS full_name,
+  appointment_date,
+  provider_type
+FROM appointments
+JOIN patients ON appointments.patient_id = patients.patient_id
+WHERE appointment_date BETWEEN '2024-06-01' AND '2024-06-30';
+```
+
+## Tools Used
+- PostgreSQL
+- pgAdmin
+- SQL
+- Optional: Tableau or Excel for visualization
+
+## Project Highlights
+- Designed and normalized a relational healthcare database
+- Used SQL to generate insights about follow-up needs and provider trends
+- Demonstrated filtering, joining, grouping, and date-based analysis
+- Built a clean structure that can scale to include labs, diagnoses, or treatment tracking
+
+## Possible Extensions
+- Add diagnosis or treatment tables
+- Track lab result trends
+- Build visual dashboards in Tableau or Excel
+- Export results to CSV or create database views for reporting
