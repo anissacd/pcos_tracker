@@ -20,62 +20,44 @@ This project simulates a small-scale healthcare data system for tracking appoint
 - visit_reason
 - follow_up_needed (BOOLEAN)
 
+### visit_types
+- visit_reason (Primary Key)
+- health_code (e.g., ICD-10 or CPT code)
+- cost (NUMERIC)
+
+### Table Creation
+
+```sql
+CREATE TABLE patients (
+  patient_id SERIAL PRIMARY KEY,
+  first_name TEXT,
+  last_name TEXT,
+  birth_date DATE,
+  gender TEXT CHECK (gender IN ('Female', 'Other')),
+  race_ethnicity TEXT
+);
+
+CREATE TABLE appointments (
+  appointment_id SERIAL PRIMARY KEY,
+  patient_id INT REFERENCES patients(patient_id),
+  appointment_date DATE,
+  provider_type TEXT,
+  visit_reason TEXT,
+  follow_up_needed BOOLEAN
+);
+
+CREATE TABLE visit_types (
+  visit_reason TEXT PRIMARY KEY,
+  health_code TEXT,
+  cost NUMERIC(8,2)
+);
+
 ### Sample Queries
-
-### Join all data
 ```sql
 SELECT *
-FROM appointments a
-JOIN patients p ON a.patient_id = p.patient_id;
+FROM patients p
+JOIN appointments a ON p.patient_id = a.patient_id
+JOIN visit_types v ON a.visit_reason = v.visit_reason
+ORDER BY a.appointment_date;
 ```
-
-### Upcoming follow-ups
-```sql
-SELECT
-  a.appointment_id,
-  CONCAT(p.first_name, ' ', p.last_name) AS full_name,
-  a.appointment_date,
-  a.provider_type,
-  a.visit_reason
-FROM appointments a
-JOIN patients p ON a.patient_id = p.patient_id
-WHERE a.follow_up_needed = TRUE;
-```
-
-### Appointments in date range
-```sql
-SELECT *
-FROM appointments
-WHERE appointment_date BETWEEN '2024-06-01' AND '2024-06-30';
-```
-
-### CSV Export Instructions
-
-After running a query (such as the join query above), export the results to CSV:
-
-- In pgAdmin:
-  - Run the query
-  - Right-click on the result grid
-  - Select "Save as CSV"
-
-
-### Concepts Demonstrated
-
-- Relational database structure
-- One-to-many relationships (patients to appointments)
-- SQL joins and filters
-- Exporting SQL results to CSV for reporting
-- Healthcare-focused data modeling
-
-__________________________________________________________________________________________________---
-
-### Key Performance Indicators (KPIs)
-
-This project tracks healthcare-related performance metrics, including:
-
-- Total patients and appointments
-- Percentage of appointments requiring follow-up
-- Appointments by provider type and visit reason
-- Demographics breakdown (age, gender, race)
-- Time-based trends (appointments per month)
 
