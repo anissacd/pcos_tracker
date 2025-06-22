@@ -1,8 +1,8 @@
-## PCOS Appointment & Follow-Up Tracker (PostgreSQL)
+### PCOS Appointment & Follow-Up Tracker (PostgreSQL)
 
 This project simulates a small-scale healthcare data system for tracking appointments and follow-up needs among patients diagnosed with or suspected to have Polycystic Ovary Syndrome (PCOS). It demonstrates database design, data entry, SQL querying, and data export for visualization or reporting.
 
-## Database Overview
+### Database Overview
 
 ### patients
 - patient_id (Primary Key)
@@ -20,7 +20,7 @@ This project simulates a small-scale healthcare data system for tracking appoint
 - visit_reason
 - follow_up_needed (BOOLEAN)
 
-## Sample Queries
+### Sample Queries
 
 ### Join all data
 ```sql
@@ -49,7 +49,7 @@ FROM appointments
 WHERE appointment_date BETWEEN '2024-06-01' AND '2024-06-30';
 ```
 
-## CSV Export Instructions
+### CSV Export Instructions
 
 After running a query (such as the join query above), export the results to CSV:
 
@@ -58,13 +58,8 @@ After running a query (such as the join query above), export the results to CSV:
   - Right-click on the result grid
   - Select "Save as CSV"
 
-- In DBeaver:
-  - Run the query
-  - Right-click on the result grid
-  - Choose "Export Resultset"
-  - Choose "CSV" as the format
 
-## Concepts Demonstrated
+### Concepts Demonstrated
 
 - Relational database structure
 - One-to-many relationships (patients to appointments)
